@@ -7,6 +7,7 @@ chrome.runtime.onInstalled.addListener(() => {
       chrome.storage.sync.set({ enabled: true, blockedCount: 0 });
     }
   });
+  chrome.alarms.create('dailyReset', { periodInMinutes: 1440 }); // 24 години
 });
 
 let blockedCount = 0;
@@ -67,8 +68,7 @@ function updateBadge(count) {
   }
 }
 
-chrome.alarms.create('dailyReset', { periodInMinutes: 1440 }); // 24 години
-
+// Слухач для alarm
 chrome.alarms.onAlarm.addListener((alarm) => {
   if (alarm.name === 'dailyReset') {
     chrome.storage.sync.set({ blockedCount: 0 });

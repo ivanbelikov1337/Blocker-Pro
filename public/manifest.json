@@ -5,9 +5,9 @@
   "description": "Потужний блокувальник реклами для Chrome",
   "permissions": [
     "storage",
-    "webRequest",
     "declarativeNetRequest",
-    "tabs"
+    "tabs",
+    "alarms"
   ],
   "host_permissions": [
     "<all_urls>"

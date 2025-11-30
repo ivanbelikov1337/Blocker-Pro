@@ -58,6 +58,10 @@
       }
     });
 
+    if (blockedCount > 0) {
+      chrome.runtime.sendMessage({ action: 'adBlocked', count: blockedCount });
+    }
+
     return blockedCount;
   }
 
@@ -76,10 +80,16 @@
       }
     });
 
+    if (blockedCount > 0) {
+      chrome.runtime.sendMessage({ action: 'adBlocked', count: blockedCount });
+    }
+
     return blockedCount;
   }
 
   const observer = new MutationObserver((mutations) => {
+    let totalBlocked = 0;
+    
     mutations.forEach((mutation) => {
       mutation.addedNodes.forEach((node) => {
         if (node.nodeType === 1) { // Element node
@@ -87,11 +97,13 @@
             try {
               if (node.matches && node.matches(selector)) {
                 node.style.setProperty('display', 'none', 'important');
+                totalBlocked++;
               }
               if (node.querySelectorAll) {
                 const children = node.querySelectorAll(selector);
                 children.forEach(child => {
                   child.style.setProperty('display', 'none', 'important');
+                  totalBlocked++;
                 });
               }
             } catch (e) {
@@ -104,11 +116,16 @@
             if (shouldBlock) {
               node.style.setProperty('display', 'none', 'important');
               node.remove();
+              totalBlocked++;
             }
           }
         }
       });
     });
+
+    if (totalBlocked > 0) {
+      chrome.runtime.sendMessage({ action: 'adBlocked', count: totalBlocked });
+    }
   });
 
   function init() {
