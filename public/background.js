@@ -20,7 +20,6 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       const totalBlocked = (result.blockedCount || 0) + (request.count || 1);
       chrome.storage.sync.set({ blockedCount: totalBlocked });
       
-      updateBadge(totalBlocked);
     });
     
     sendResponse({ success: true });
@@ -51,7 +50,6 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   } else if (request.action === 'resetStats') {
     chrome.storage.sync.set({ blockedCount: 0 }, () => {
       blockedCount = 0;
-      updateBadge(0);
       sendResponse({ success: true });
     });
     return true;
@@ -59,20 +57,9 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 });
 
 function updateBadge(count) {
-  if (count > 0) {
-    const displayCount = count > 999 ? '999+' : count.toString();
-    chrome.action.setBadgeText({ text: displayCount });
-    chrome.action.setBadgeBackgroundColor({ color: '#4CAF50' });
-  } else {
-    chrome.action.setBadgeText({ text: '' });
-  }
-}
-
-// Слухач для alarm
 chrome.alarms.onAlarm.addListener((alarm) => {
   if (alarm.name === 'dailyReset') {
     chrome.storage.sync.set({ blockedCount: 0 });
     blockedCount = 0;
-    updateBadge(0);
   }
 });

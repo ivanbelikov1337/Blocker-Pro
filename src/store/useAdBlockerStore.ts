@@ -50,7 +50,6 @@ export const useAdBlockerStore = create<AdBlockerState>((set, get) => ({
         }
       });
     } else {
-      // Для тестування без Chrome API
       set({ blockedCount: 42, enabled: true, loading: false });
     }
   },
