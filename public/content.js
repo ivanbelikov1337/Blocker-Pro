@@ -1,6 +1,8 @@
 (function() {
   'use strict';
 
+  let isEnabled = true;
+
   const adSelectors = [
     '[class*="ad-"]',
     '[class*="ads-"]',
@@ -38,7 +40,14 @@
     'adservice.google.com'
   ];
 
+  // Перевірка стану при завантаженні
+  chrome.storage.sync.get(['enabled'], (result) => {
+    isEnabled = result.enabled !== false;
+  });
+
   function blockAds() {
+    if (!isEnabled) return 0;
+    
     let blockedCount = 0;
 
     adSelectors.forEach(selector => {
@@ -55,6 +64,7 @@
           }
         });
       } catch (e) {
+        // Ігноруємо помилки
       }
     });
 
@@ -66,6 +76,8 @@
   }
 
   function blockAdIframes() {
+    if (!isEnabled) return 0;
+    
     const iframes = document.querySelectorAll('iframe');
     let blockedCount = 0;
 
@@ -88,11 +100,13 @@
   }
 
   const observer = new MutationObserver((mutations) => {
+    if (!isEnabled) return;
+    
     let totalBlocked = 0;
     
     mutations.forEach((mutation) => {
       mutation.addedNodes.forEach((node) => {
-        if (node.nodeType === 1) { // Element node
+        if (node.nodeType === 1) {
           adSelectors.forEach(selector => {
             try {
               if (node.matches && node.matches(selector)) {
@@ -107,6 +121,7 @@
                 });
               }
             } catch (e) {
+              // Ігноруємо помилки
             }
           });
 
@@ -129,20 +144,29 @@
   });
 
   function init() {
-    const blockedAds = blockAds();
-    const blockedIframes = blockAdIframes();
-    
-    console.log(`Ad Blocker Pro: Заблоковано ${blockedAds + blockedIframes} рекламних елементів`);
+    chrome.storage.sync.get(['enabled'], (result) => {
+      isEnabled = result.enabled !== false;
+      
+      if (!isEnabled) {
+        console.log('Ad Blocker Pro: Вимкнено');
+        return;
+      }
 
-    observer.observe(document.body || document.documentElement, {
-      childList: true,
-      subtree: true
+      const blockedAds = blockAds();
+      const blockedIframes = blockAdIframes();
+      
+      console.log(`Ad Blocker Pro: Заблоковано ${blockedAds + blockedIframes} рекламних елементів`);
+
+      observer.observe(document.body || document.documentElement, {
+        childList: true,
+        subtree: true
+      });
+
+      setTimeout(blockAds, 1000);
+      setTimeout(blockAds, 3000);
+      setTimeout(blockAdIframes, 1000);
+      setTimeout(blockAdIframes, 3000);
     });
-
-    setTimeout(blockAds, 1000);
-    setTimeout(blockAds, 3000);
-    setTimeout(blockAdIframes, 1000);
-    setTimeout(blockAdIframes, 3000);
   }
 
   if (document.readyState === 'loading') {
@@ -152,7 +176,9 @@
   }
 
   window.addEventListener('load', () => {
-    blockAds();
-    blockAdIframes();
+    if (isEnabled) {
+      blockAds();
+      blockAdIframes();
+    }
   });
 })();

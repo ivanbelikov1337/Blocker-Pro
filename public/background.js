@@ -56,7 +56,6 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   }
 });
 
-function updateBadge(count) {
 chrome.alarms.onAlarm.addListener((alarm) => {
   if (alarm.name === 'dailyReset') {
     chrome.storage.sync.set({ blockedCount: 0 });
