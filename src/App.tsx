@@ -60,7 +60,7 @@ function App() {
           Reset Statistics
         </button>
       </div>
- 
+
       <div className="info">
         <p className="info-text">
           {enabled 
