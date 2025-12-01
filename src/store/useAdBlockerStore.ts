@@ -16,8 +16,18 @@ interface AdBlockerState {
 // Declare chrome types
 declare const chrome: {
   runtime?: {
+    id?: string;
     sendMessage?: (message: { action: string }, callback: (response?: unknown) => void) => void;
   };
+};
+
+// Helper function to check if we're running as a Chrome extension
+const isExtensionContext = (): boolean => {
+  try {
+    return !!(chrome?.runtime?.id && chrome?.runtime?.sendMessage);
+  } catch {
+    return false;
+  }
 };
 
 export const useAdBlockerStore = create<AdBlockerState>((set, get) => ({
@@ -36,8 +46,8 @@ export const useAdBlockerStore = create<AdBlockerState>((set, get) => ({
   })),
 
   loadStats: () => {
-    if (chrome?.runtime?.sendMessage) {
-      chrome.runtime.sendMessage({ action: 'getStats' }, (response?: unknown) => {
+    if (isExtensionContext()) {
+      chrome.runtime!.sendMessage!({ action: 'getStats' }, (response?: unknown) => {
         if (response && typeof response === 'object' && 'blockedCount' in response && 'enabled' in response) {
           const stats = response as { blockedCount: number; enabled: boolean };
           set({ 
@@ -50,28 +60,31 @@ export const useAdBlockerStore = create<AdBlockerState>((set, get) => ({
         }
       });
     } else {
+      // Dev mode - use mock data
       set({ blockedCount: 42, enabled: true, loading: false });
     }
   },
 
   toggleEnabled: () => {
-    if (chrome?.runtime?.sendMessage) {
-      chrome.runtime.sendMessage({ action: 'toggleEnabled' }, (response?: unknown) => {
+    if (isExtensionContext()) {
+      chrome.runtime!.sendMessage!({ action: 'toggleEnabled' }, (response?: unknown) => {
         if (response && typeof response === 'object' && 'enabled' in response) {
           set({ enabled: (response as { enabled: boolean }).enabled });
         }
       });
     } else {
+      // Dev mode - toggle locally
       set((state) => ({ enabled: !state.enabled }));
     }
   },
 
   resetStats: () => {
-    if (chrome?.runtime?.sendMessage) {
-      chrome.runtime.sendMessage({ action: 'resetStats' }, () => {
+    if (isExtensionContext()) {
+      chrome.runtime!.sendMessage!({ action: 'resetStats' }, () => {
         get().loadStats();
       });
     } else {
+      // Dev mode - reset locally
       set({ blockedCount: 0 });
     }
   },

@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import './App.css'
 import { useAdBlockerStore } from './store/useAdBlockerStore'
+import logo from './assets/logo.png'
 
 function App() {
   const { t } = useTranslation();
@@ -23,19 +24,11 @@ function App() {
     <div className="popup">
       <div className="header">
         <div className="logo-container">
-          <svg className="shield-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 2L3 7V11C3 16.55 6.84 21.74 12 23C17.16 21.74 21 16.55 21 11V7L12 2Z" 
-                  fill={enabled ? "#4CAF50" : "#9E9E9E"} 
-                  stroke="white" 
-                  strokeWidth="2"/>
-            {enabled && (
-              <path d="M9 12L11 14L15 10" 
-                    stroke="white" 
-                    strokeWidth="2" 
-                    strokeLinecap="round" 
-                    strokeLinejoin="round"/>
-            )}
-          </svg>
+          <img 
+            src={logo} 
+            alt="Blocker Raptor" 
+            className={`logo-icon ${enabled ? 'enabled' : 'disabled'}`}
+          />
         </div>
         <h1>{t('header.title')}</h1>
         <p className="subtitle">{t('header.subtitle')}</p>
