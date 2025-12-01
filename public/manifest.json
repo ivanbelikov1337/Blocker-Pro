@@ -6,8 +6,10 @@
   "permissions": [
     "storage",
     "declarativeNetRequest",
+    "declarativeNetRequestFeedback",
     "tabs",
-    "alarms"
+    "alarms",
+    "scripting"
   ],
   "host_permissions": [
     "<all_urls>"
@@ -17,7 +19,20 @@
   },
   "content_scripts": [
     {
+      "matches": ["*://*.youtube.com/*"],
+      "js": ["youtube-blocker.js"],
+      "run_at": "document_start",
+      "world": "MAIN"
+    },
+    {
+      "matches": ["*://*.youtube.com/*"],
+      "js": ["content.js"],
+      "css": ["content.css"],
+      "run_at": "document_start"
+    },
+    {
       "matches": ["<all_urls>"],
+      "exclude_matches": ["*://*.youtube.com/*"],
       "js": ["content.js"],
       "css": ["content.css"],
       "run_at": "document_start"
@@ -44,5 +59,11 @@
         "path": "rules.json"
       }
     ]
-  }
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["youtube-blocker.js"],
+      "matches": ["*://*.youtube.com/*"]
+    }
+  ]
 }
