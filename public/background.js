@@ -1,13 +1,11 @@
 // Background Service Worker для Chrome Extension
 chrome.runtime.onInstalled.addListener(() => {
-  console.log('Blocker Raptor installed!');
-  
   chrome.storage.sync.get(['enabled', 'blockedCount'], (result) => {
     if (result.enabled === undefined) {
       chrome.storage.sync.set({ enabled: true, blockedCount: 0 });
     }
   });
-  chrome.alarms.create('dailyReset', { periodInMinutes: 1440 }); // 24 години
+  chrome.alarms.create('dailyReset', { periodInMinutes: 1440 }); 
 });
 
 let blockedCount = 0;
@@ -37,7 +35,6 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       chrome.storage.sync.set({ enabled: newState }, () => {
         sendResponse({ enabled: newState });
         
-        // Відправляємо повідомлення всім вкладкам про зміну стану
         chrome.tabs.query({}, (tabs) => {
           tabs.forEach(tab => {
             if (tab.id && tab.url && !tab.url.startsWith('chrome://')) {
@@ -45,7 +42,6 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
                 action: 'updateEnabled', 
                 enabled: newState 
               }).catch(() => {
-                // Ігноруємо помилки для вкладок, які не можуть отримати повідомлення
               });
             }
           });

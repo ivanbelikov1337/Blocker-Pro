@@ -1,7 +1,8 @@
 (function() {
   'use strict';
 
-  let isEnabled = true;
+  let isEnabled = false;
+  let isInitialized = false;
 
   const adSelectors = [
     '[class*="ad-"]',
@@ -40,7 +41,6 @@
     'adservice.google.com'
   ];
 
-  // Перевірка стану при завантаженні
   chrome.storage.sync.get(['enabled'], (result) => {
     isEnabled = result.enabled !== false;
   });
@@ -48,7 +48,7 @@
   chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.action === 'updateEnabled') {
       isEnabled = request.enabled;
-      console.log(`Blocker Raptor: ${isEnabled ? 'Увімкнено' : 'Вимкнено'}`);
+      isInitialized = true;
       sendResponse({ success: true });
     }
   });
@@ -72,7 +72,6 @@
           }
         });
       } catch (e) {
-        // Ігноруємо помилки
       }
     });
 
@@ -129,7 +128,6 @@
                 });
               }
             } catch (e) {
-              // Ігноруємо помилки
             }
           });
 
@@ -154,26 +152,33 @@
   function init() {
     chrome.storage.sync.get(['enabled'], (result) => {
       isEnabled = result.enabled !== false;
+      isInitialized = true;
       
       if (!isEnabled) {
-        console.log('Blocker Raptor: Вимкнено');
         return;
       }
 
-      const blockedAds = blockAds();
-      const blockedIframes = blockAdIframes();
-      
-      console.log(`Blocker Raptor: Заблоковано ${blockedAds + blockedIframes} рекламних елементів`);
+      blockAds();
+      blockAdIframes();
 
       observer.observe(document.body || document.documentElement, {
         childList: true,
         subtree: true
       });
 
-      setTimeout(blockAds, 1000);
-      setTimeout(blockAds, 3000);
-      setTimeout(blockAdIframes, 1000);
-      setTimeout(blockAdIframes, 3000);
+      setTimeout(() => {
+        if (isEnabled) {
+          blockAds();
+          blockAdIframes();
+        }
+      }, 1000);
+      
+      setTimeout(() => {
+        if (isEnabled) {
+          blockAds();
+          blockAdIframes();
+        }
+      }, 3000);
     });
   }
 
@@ -184,7 +189,7 @@
   }
 
   window.addEventListener('load', () => {
-    if (isEnabled) {
+    if (isInitialized && isEnabled) {
       blockAds();
       blockAdIframes();
     }
