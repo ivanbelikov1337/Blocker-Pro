@@ -1,0 +1,22 @@
+{
+  "header": {
+    "title": "Blocker Raptor",
+    "subtitle": "广告保护"
+  },
+  "stats": {
+    "blockedToday": "今日已拦截"
+  },
+  "controls": {
+    "enabled": "✓ 已启用",
+    "disabled": "✕ 已禁用",
+    "resetStats": "重置统计"
+  },
+  "info": {
+    "activeMessage": "扩展程序已激活，正在所有网站上拦截广告",
+    "disabledMessage": "扩展程序已禁用。点击按钮激活"
+  },
+  "footer": {
+    "version": "版本"
+  },
+  "loading": "加载中..."
+}

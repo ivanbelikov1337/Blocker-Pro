@@ -1,0 +1,22 @@
+{
+  "header": {
+    "title": "Blocker Raptor",
+    "subtitle": "Защита от рекламы"
+  },
+  "stats": {
+    "blockedToday": "Заблокировано сегодня"
+  },
+  "controls": {
+    "enabled": "✓ Включено",
+    "disabled": "✕ Отключено",
+    "resetStats": "Сбросить статистику"
+  },
+  "info": {
+    "activeMessage": "Расширение активно и блокирует рекламу на всех сайтах",
+    "disabledMessage": "Расширение отключено. Нажмите кнопку для активации"
+  },
+  "footer": {
+    "version": "Версия"
+  },
+  "loading": "Загрузка..."
+}

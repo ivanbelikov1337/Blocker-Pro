@@ -1,0 +1,22 @@
+{
+  "header": {
+    "title": "Blocker Raptor",
+    "subtitle": "Ad Protection"
+  },
+  "stats": {
+    "blockedToday": "Blocked today"
+  },
+  "controls": {
+    "enabled": "✓ Enabled",
+    "disabled": "✕ Disabled",
+    "resetStats": "Reset Statistics"
+  },
+  "info": {
+    "activeMessage": "Extension is active and blocking ads on all websites",
+    "disabledMessage": "Extension is disabled. Click the button to activate"
+  },
+  "footer": {
+    "version": "Version"
+  },
+  "loading": "Loading..."
+}

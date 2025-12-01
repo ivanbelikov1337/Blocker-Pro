@@ -1,0 +1,22 @@
+{
+  "header": {
+    "title": "Blocker Raptor",
+    "subtitle": "Proteção contra anúncios"
+  },
+  "stats": {
+    "blockedToday": "Bloqueado hoje"
+  },
+  "controls": {
+    "enabled": "✓ Ativado",
+    "disabled": "✕ Desativado",
+    "resetStats": "Redefinir estatísticas"
+  },
+  "info": {
+    "activeMessage": "A extensão está ativa e bloqueando anúncios em todos os sites",
+    "disabledMessage": "A extensão está desativada. Clique no botão para ativar"
+  },
+  "footer": {
+    "version": "Versão"
+  },
+  "loading": "Carregando..."
+}

@@ -1,0 +1,22 @@
+{
+  "header": {
+    "title": "Blocker Raptor",
+    "subtitle": "広告保護"
+  },
+  "stats": {
+    "blockedToday": "今日ブロック済み"
+  },
+  "controls": {
+    "enabled": "✓ 有効",
+    "disabled": "✕ 無効",
+    "resetStats": "統計をリセット"
+  },
+  "info": {
+    "activeMessage": "拡張機能はアクティブで、すべてのウェブサイトで広告をブロックしています",
+    "disabledMessage": "拡張機能は無効です。ボタンをクリックして有効にしてください"
+  },
+  "footer": {
+    "version": "バージョン"
+  },
+  "loading": "読み込み中..."
+}

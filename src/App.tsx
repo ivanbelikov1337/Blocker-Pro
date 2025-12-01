@@ -1,8 +1,10 @@
 import { useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import './App.css'
 import { useAdBlockerStore } from './store/useAdBlockerStore'
 
 function App() {
+  const { t } = useTranslation();
   const { blockedCount, enabled, loading, loadStats, toggleEnabled, resetStats } = useAdBlockerStore();
 
   useEffect(() => {
@@ -12,7 +14,7 @@ function App() {
   if (loading) {
     return (
       <div className="popup">
-        <div className="loading">Loading...</div>
+        <div className="loading">{t('loading')}</div>
       </div>
     );
   }
@@ -35,14 +37,14 @@ function App() {
             )}
           </svg>
         </div>
-        <h1>Blocker Raptor</h1>
-        <p className="subtitle">Ad Protection</p>
+        <h1>{t('header.title')}</h1>
+        <p className="subtitle">{t('header.subtitle')}</p>
       </div>
 
       <div className="stats">
         <div className="stat-card">
           <div className="stat-number">{blockedCount}</div>
-          <div className="stat-label">Blocked today</div>
+          <div className="stat-label">{t('stats.blockedToday')}</div>
         </div>
       </div>
 
@@ -52,25 +54,25 @@ function App() {
           onClick={toggleEnabled}
         >
           <span className="toggle-text">
-            {enabled ? '✓ Enabled' : '✕ Disabled'}
+            {enabled ? t('controls.enabled') : t('controls.disabled')}
           </span>
         </button>
 
         <button className="reset-btn" onClick={resetStats}>
-          Reset Statistics
+          {t('controls.resetStats')}
         </button>
       </div>
 
       <div className="info">
         <p className="info-text">
           {enabled 
-            ? 'Extension is active and blocking ads on all websites' 
-            : 'Extension is disabled. Click the button to activate'}
+            ? t('info.activeMessage') 
+            : t('info.disabledMessage')}
         </p>
       </div>
 
       <div className="footer">
-        <small>Version 1.0.0</small>
+        <small>{t('footer.version')} 1.0.0</small>
       </div>
     </div>
   )

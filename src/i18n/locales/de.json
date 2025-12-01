@@ -1,0 +1,22 @@
+{
+  "header": {
+    "title": "Blocker Raptor",
+    "subtitle": "Werbeschutz"
+  },
+  "stats": {
+    "blockedToday": "Heute blockiert"
+  },
+  "controls": {
+    "enabled": "✓ Aktiviert",
+    "disabled": "✕ Deaktiviert",
+    "resetStats": "Statistik zurücksetzen"
+  },
+  "info": {
+    "activeMessage": "Erweiterung ist aktiv und blockiert Werbung auf allen Websites",
+    "disabledMessage": "Erweiterung ist deaktiviert. Klicken Sie auf die Schaltfläche zum Aktivieren"
+  },
+  "footer": {
+    "version": "Version"
+  },
+  "loading": "Laden..."
+}

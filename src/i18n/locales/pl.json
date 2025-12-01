@@ -1,0 +1,22 @@
+{
+  "header": {
+    "title": "Blocker Raptor",
+    "subtitle": "Ochrona przed reklamami"
+  },
+  "stats": {
+    "blockedToday": "Zablokowano dziś"
+  },
+  "controls": {
+    "enabled": "✓ Włączony",
+    "disabled": "✕ Wyłączony",
+    "resetStats": "Resetuj statystyki"
+  },
+  "info": {
+    "activeMessage": "Rozszerzenie jest aktywne i blokuje reklamy na wszystkich stronach",
+    "disabledMessage": "Rozszerzenie jest wyłączone. Kliknij przycisk, aby aktywować"
+  },
+  "footer": {
+    "version": "Wersja"
+  },
+  "loading": "Ładowanie..."
+}
