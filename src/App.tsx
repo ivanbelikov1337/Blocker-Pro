@@ -33,7 +33,7 @@ function App() {
                     strokeLinecap="round" 
                     strokeLinejoin="round"/>
             )}
-          </svg>
+          </svg> 
         </div>
         <h1>Blocker Raptor</h1>
         <p className="subtitle">Ad Protection</p>
