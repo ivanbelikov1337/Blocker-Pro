@@ -12,7 +12,7 @@ function App() {
   if (loading) {
     return (
       <div className="popup">
-        <div className="loading">Завантаження...</div>
+        <div className="loading">Loading...</div>
       </div>
     );
   }
@@ -35,14 +35,14 @@ function App() {
             )}
           </svg>
         </div>
-        <h1>Ad Blocker Pro</h1>
-        <p className="subtitle">Захист від реклами</p>
+        <h1>Blocker Raptor</h1>
+        <p className="subtitle">Ad Protection</p>
       </div>
 
       <div className="stats">
         <div className="stat-card">
           <div className="stat-number">{blockedCount}</div>
-          <div className="stat-label">Заблоковано сьогодні</div>
+          <div className="stat-label">Blocked today</div>
         </div>
       </div>
 
@@ -52,25 +52,25 @@ function App() {
           onClick={toggleEnabled}
         >
           <span className="toggle-text">
-            {enabled ? '✓ Увімкнено' : '✕ Вимкнено'}
+            {enabled ? '✓ Enabled' : '✕ Disabled'}
           </span>
         </button>
 
         <button className="reset-btn" onClick={resetStats}>
-          Скинути статистику
+          Reset Statistics
         </button>
       </div>
 
       <div className="info">
         <p className="info-text">
           {enabled 
-            ? 'Розширення активне і блокує рекламу на всіх сайтах' 
-            : 'Розширення вимкнено. Натисніть кнопку для активації'}
+            ? 'Extension is active and blocking ads on all websites' 
+            : 'Extension is disabled. Click the button to activate'}
         </p>
       </div>
 
       <div className="footer">
-        <small>Версія 1.0.0</small>
+        <small>Version 1.0.0</small>
       </div>
     </div>
   )

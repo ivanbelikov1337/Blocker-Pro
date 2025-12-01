@@ -45,6 +45,14 @@
     isEnabled = result.enabled !== false;
   });
 
+  chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    if (request.action === 'updateEnabled') {
+      isEnabled = request.enabled;
+      console.log(`Blocker Raptor: ${isEnabled ? 'Увімкнено' : 'Вимкнено'}`);
+      sendResponse({ success: true });
+    }
+  });
+
   function blockAds() {
     if (!isEnabled) return 0;
     
@@ -148,14 +156,14 @@
       isEnabled = result.enabled !== false;
       
       if (!isEnabled) {
-        console.log('Ad Blocker Pro: Вимкнено');
+        console.log('Blocker Raptor: Вимкнено');
         return;
       }
 
       const blockedAds = blockAds();
       const blockedIframes = blockAdIframes();
       
-      console.log(`Ad Blocker Pro: Заблоковано ${blockedAds + blockedIframes} рекламних елементів`);
+      console.log(`Blocker Raptor: Заблоковано ${blockedAds + blockedIframes} рекламних елементів`);
 
       observer.observe(document.body || document.documentElement, {
         childList: true,

@@ -1,6 +1,6 @@
 // Background Service Worker для Chrome Extension
 chrome.runtime.onInstalled.addListener(() => {
-  console.log('Ad Blocker Pro встановлено!');
+  console.log('Blocker Raptor installed!');
   
   chrome.storage.sync.get(['enabled', 'blockedCount'], (result) => {
     if (result.enabled === undefined) {
@@ -37,10 +37,16 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       chrome.storage.sync.set({ enabled: newState }, () => {
         sendResponse({ enabled: newState });
         
+        // Відправляємо повідомлення всім вкладкам про зміну стану
         chrome.tabs.query({}, (tabs) => {
           tabs.forEach(tab => {
-            if (tab.url && !tab.url.startsWith('chrome://')) {
-              chrome.tabs.reload(tab.id);
+            if (tab.id && tab.url && !tab.url.startsWith('chrome://')) {
+              chrome.tabs.sendMessage(tab.id, { 
+                action: 'updateEnabled', 
+                enabled: newState 
+              }).catch(() => {
+                // Ігноруємо помилки для вкладок, які не можуть отримати повідомлення
+              });
             }
           });
         });

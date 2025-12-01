@@ -1,94 +1,96 @@
-# Ad Blocker Pro - Chrome Extension
+# Blocker Raptor - Chrome Extension
 
-Потужне розширення для Chrome, яке блокує рекламу на веб-сайтах.
+Powerful Chrome extension that blocks ads on websites.
 
-## 🚀 Функціональність
+## 🚀 Features
 
-- ✅ Блокування рекламних елементів на сторінках
-- ✅ Блокування рекламних скриптів та iframe
-- ✅ Блокування мережевих запитів до рекламних серверів
-- ✅ Підрахунок заблокованих елементів
-- ✅ Можливість увімкнення/вимкнення блокування
-- ✅ Красивий popup інтерфейс
-- ✅ Автоматичне виявлення динамічно доданих рекламних елементів
+- ✅ Blocking ad elements on pages
+- ✅ Blocking ad scripts and iframes
+- ✅ Blocking network requests to ad servers
+- ✅ Counting blocked elements
+- ✅ Enable/disable blocking functionality
+- ✅ Beautiful popup interface
+- ✅ Automatic detection of dynamically added ad elements
 
-## 📦 Встановлення для розробки
+## 📦 Development Installation
 
-1. Встановіть залежності:
+1. Install dependencies:
 ```bash
 npm install
 ```
 
-2. Зберіть проект:
+2. Build the project:
 ```bash
 npm run build
 ```
 
-3. Завантажте розширення в Chrome:
-   - Відкрийте `chrome://extensions/`
-   - Увімкніть "Режим розробника" (Developer mode)
-   - Натисніть "Завантажити розпаковане" (Load unpacked)
-   - Виберіть папку `dist`
+3. Load extension in Chrome:
+   - Open `chrome://extensions/`
+   - Enable "Developer mode"
+   - Click "Load unpacked"
+   - Select the `dist` folder
 
-## 🛠️ Команди
+## 🛠️ Commands
 
-- `npm run dev` - Запуск в режимі розробки
-- `npm run build` - Збірка для продакшну
-- `npm run lint` - Перевірка коду
+- `npm run dev` - Run in development mode
+- `npm run build` - Build for production
+- `npm run lint` - Check code
 
-## 📋 Що блокується
+## 📋 What is Blocked
 
-### Елементи DOM:
-- Елементи з класами/id, що містять: ad, ads, advertisement, banner, sponsor, promo
+### DOM Elements:
+- Elements with classes/ids containing: ad, ads, advertisement, banner, sponsor, promo
 - Google AdSense (adsbygoogle)
-- Рекламні контейнери
-- Соціальні кнопки шерингу
+- Ad containers
+- Social sharing buttons
 
-### Мережеві запити:
+### Network Requests:
 - doubleclick.net
 - googlesyndication.com
 - googleadservices.com
 - advertising.com
 - adservice.google.com
 
-## 📁 Структура проекту
+## 📁 Project Structure
 
 ```
 blocker-pro/
 ├── public/
-│   ├── manifest.json      # Маніфест розширення
+│   ├── manifest.json      # Extension manifest
 │   ├── background.js      # Background service worker
-│   ├── content.js         # Content script для блокування
-│   ├── content.css        # Стилі для блокування
-│   ├── rules.json         # Правила declarativeNetRequest
-│   └── icon*.png          # Іконки розширення
+│   ├── content.js         # Content script for blocking
+│   ├── content.css        # Blocking styles
+│   ├── rules.json         # declarativeNetRequest rules
+│   └── icon*.png          # Extension icons
 ├── src/
-│   ├── App.tsx            # Popup інтерфейс (React)
-│   ├── App.css            # Стилі popup
+│   ├── App.tsx            # Popup interface (React)
+│   ├── App.css            # Popup styles
+│   ├── store/             # Zustand store
 │   └── main.tsx           # Entry point
-└── dist/                  # Зібране розширення
+└── dist/                  # Built extension
 ```
 
-## 🎨 Особливості
+## 🎨 Features
 
-- Використовує Chrome Extension Manifest V3
-- React для popup інтерфейсу
-- TypeScript для type-safety
-- Vite для швидкої збірки
-- Declarative Net Request API для блокування мережевих запитів
-- Mutation Observer для виявлення динамічних рекламних елементів
+- Uses Chrome Extension Manifest V3
+- React for popup interface
+- TypeScript for type-safety
+- Vite for fast builds
+- Zustand for state management
+- Declarative Net Request API for blocking network requests
+- Mutation Observer for detecting dynamic ad elements
 
-## 🔧 Налаштування
+## 🔧 Settings
 
-Розширення автоматично блокує рекламу після встановлення. Ви можете:
-- Увімкнути/вимкнути блокування через popup
-- Переглянути статистику заблокованих елементів
-- Скинути лічильник статистики
+The extension automatically blocks ads after installation. You can:
+- Enable/disable blocking through popup
+- View blocked elements statistics
+- Reset statistics counter
 
-## 📝 Ліцензія
+## 📝 License
 
 MIT
 
-## 👨‍💻 Автор
+## 👨‍💻 Author
 
 Created with ❤️ for a better web experience

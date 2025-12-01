@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Blocker Pro",
+  "name": "Blocker Raptor",
   "version": "1.0.0",
-  "description": "Потужний блокувальник реклами для Chrome",
+  "description": "Powerful ad blocker for Chrome",
   "permissions": [
     "storage",
     "declarativeNetRequest",
