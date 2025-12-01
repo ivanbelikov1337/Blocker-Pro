@@ -24,7 +24,7 @@ function App() {
     <div className="popup">
       <div className="header">
         <div className="logo-container">
-          <img 
+          <img
             src={logo}  
             alt="Blocker Raptor" 
             className={`logo-icon ${enabled ? 'enabled' : 'disabled'}`}
