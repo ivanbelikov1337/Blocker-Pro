@@ -1,15 +1,14 @@
 {
   "manifest_version": 3,
   "name": "Blocker Raptor",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Powerful ad blocker for Chrome",
   "permissions": [
     "storage",
     "declarativeNetRequest",
     "declarativeNetRequestFeedback",
     "tabs",
-    "alarms",
-    "scripting"
+    "alarms"
   ],
   "host_permissions": [
     "<all_urls>"

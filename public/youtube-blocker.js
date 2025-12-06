@@ -264,7 +264,91 @@
     ).forEach(el => el.remove());
   }
 
+  // Hide ad blocker popup and play video
+  function hideAdBlockerPopup() {
+    // Keywords in different languages
+    const keywords = [
+      'блокировщик', 'блокувальник', 'ad blocker', 'adblocker',
+      'werbeblocker', 'bloqueur', 'bloqueador', 'blocco',
+      'нельзя пользоваться', 'not allowed', 'turn off'
+    ];
+
+    // Find and remove the popup dialog
+    const dialogs = document.querySelectorAll('tp-yt-paper-dialog');
+    dialogs.forEach(dialog => {
+      if (!dialog) return;
+      const text = (dialog.textContent || '').toLowerCase();
+      const isAdBlockPopup = keywords.some(kw => text.includes(kw.toLowerCase()));
+      
+      if (isAdBlockPopup) {
+        // Hide and remove the dialog
+        dialog.style.setProperty('display', 'none', 'important');
+        dialog.remove();
+        
+        // Remove the dark backdrop
+        document.querySelectorAll('tp-yt-iron-overlay-backdrop').forEach(backdrop => {
+          backdrop.style.setProperty('display', 'none', 'important');
+          backdrop.remove();
+        });
+        
+        // Fix body/html scroll lock
+        document.body.style.setProperty('overflow', 'auto', 'important');
+        document.documentElement.style.setProperty('overflow', 'auto', 'important');
+        document.body.style.setProperty('position', 'static', 'important');
+        
+        // Remove any remaining overlays
+        document.querySelectorAll('ytd-popup-container').forEach(popup => {
+          const popupText = (popup.textContent || '').toLowerCase();
+          if (keywords.some(kw => popupText.includes(kw.toLowerCase()))) {
+            popup.style.setProperty('display', 'none', 'important');
+          }
+        });
+        
+        // Click the play button to start video
+        setTimeout(() => {
+          const video = document.querySelector('video');
+          const playButton = document.querySelector('button.ytp-play-button');
+          
+          // Try to play video directly
+          if (video) {
+            video.muted = false;
+            video.play().catch(() => {});
+          }
+          
+          // Click play button - check if it says "Смотреть" (Play) not "Пауза" (Pause)
+          if (playButton) {
+            const ariaLabel = playButton.getAttribute('aria-label') || '';
+            const title = playButton.getAttribute('title') || '';
+            // If button shows play icon (not pause), click it
+            if (ariaLabel.includes('Смотреть') || 
+                ariaLabel.includes('Play') || 
+                ariaLabel.includes('воспроизв') ||
+                title.includes('Воспроизвести') ||
+                title.includes('Play')) {
+              playButton.click();
+            }
+          }
+        }, 100);
+
+        // Try again after a bit longer
+        setTimeout(() => {
+          const video = document.querySelector('video');
+          if (video && video.paused) {
+            video.play().catch(() => {});
+          }
+        }, 500);
+      }
+    });
+    
+    // Also check for enforcement message
+    document.querySelectorAll('ytd-enforcement-message-view-model').forEach(el => {
+      el.style.setProperty('display', 'none', 'important');
+      el.remove();
+    });
+  }
+
   setInterval(forceSkipAd, 50);
+  setInterval(hideAdBlockerPopup, 100);
   
   const observer = new MutationObserver((mutations) => {
     forceSkipAd();

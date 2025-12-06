@@ -1,2 +1,40 @@
 /* Blocker Raptor - Ad Blocking Styles */
-/* This file is intentionally empty - blocking is controlled by JavaScript based on user settings */
+
+/* Hide YouTube ad blocker detection modal */
+tp-yt-paper-dialog:has(yt-playability-error-supported-renderers),
+tp-yt-paper-dialog:has(#feedback),
+ytd-enforcement-message-view-model,
+yt-playability-error-supported-renderers,
+ytd-popup-container tp-yt-paper-dialog:has([class*="enforce"]),
+tp-yt-iron-overlay-backdrop,
+yt-upsell-dialog-renderer,
+ytd-mealbar-promo-renderer:has([class*="ad"]) {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Ensure video player is not hidden */
+#movie_player {
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Hide YouTube ads */
+.video-ads,
+.ytp-ad-module,
+.ytp-ad-overlay-slot,
+.ytp-ad-text-overlay,
+.ytp-ad-player-overlay,
+.ytp-ad-image-overlay,
+#player-ads,
+#masthead-ad,
+ytd-ad-slot-renderer,
+ytd-in-feed-ad-layout-renderer,
+ytd-banner-promo-renderer,
+ytd-promoted-sparkles-web-renderer,
+ytd-display-ad-renderer,
+.ytd-rich-item-renderer:has(ytd-ad-slot-renderer) {
+  display: none !important;
+}
